@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dollydigitalstudio.com/sitemap.xml
+Sitemap: https://gamingshivam28.github.io/website113/sitemap.xml
