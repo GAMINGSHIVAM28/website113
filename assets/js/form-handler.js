@@ -16,7 +16,24 @@ class FormHandler {
     if (this.contactForm) {
       this.createLoadingSpinner();
       this.createSuccessContainer();
+      this.handleRedirectStatus();
       this.contactForm.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+  }
+
+  handleRedirectStatus() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('submitted') === '1') {
+      this.showStatus('Your inquiry has been sent successfully. We will contact you within 24 hours.', 'success');
+      this.showSuccess();
+
+      setTimeout(() => {
+        this.hideSuccess();
+      }, 6000);
+
+      const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+      window.history.replaceState({}, document.title, cleanUrl);
     }
   }
 
@@ -200,30 +217,20 @@ class FormHandler {
     }
   }
 
-  async submitToFormSubmit(formData) {
-    const action = this.contactForm.getAttribute('action') || '';
-    const submitUrl = action.includes('/ajax/')
-      ? action
-      : action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+  ensureHiddenField(name, value) {
+    let field = this.contactForm.querySelector(`input[name="${name}"]`);
 
-    const response = await fetch(submitUrl, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-
-    const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || result.success === 'false') {
-      throw new Error(result.message || 'We could not send your inquiry right now.');
+    if (!field) {
+      field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = name;
+      this.contactForm.appendChild(field);
     }
 
-    return result;
+    field.value = value;
   }
 
-  async handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     this.clearStatus();
 
@@ -242,48 +249,33 @@ class FormHandler {
       return;
     }
 
-    const formData = new FormData(this.contactForm);
-    formData.set('_captcha', 'false');
-    formData.set('_template', 'table');
-
     if (window.location.protocol === 'file:') {
       this.showStatus('To send real inquiries, open this page through a local server or your live website URL. FormSubmit will not deliver emails from file:// pages.', 'error');
       return;
     }
 
+    const successUrl = `${window.location.origin}${window.location.pathname}?submitted=1${window.location.hash || ''}`;
+    this.ensureHiddenField('_next', successUrl);
+    this.ensureHiddenField('_captcha', 'false');
+    this.ensureHiddenField('_template', 'table');
+
     this.setSubmittingState(true);
     this.showLoading();
+    this.showStatus('Sending your inquiry...', 'success');
 
-    try {
-      await this.submitToFormSubmit(formData);
+    console.log({
+      name,
+      email,
+      phone,
+      service,
+      subject,
+      message,
+      timestamp: new Date().toISOString()
+    });
 
-      this.hideLoading();
-      this.showStatus('Your inquiry has been sent successfully. Please also check your spam folder for the auto-reply.', 'success');
-      this.showSuccess();
-      this.contactForm.reset();
-
-      setTimeout(() => {
-        this.hideSuccess();
-      }, 6000);
-
-      console.log({
-        name,
-        email,
-        phone,
-        service,
-        subject,
-        message,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
-      this.hideLoading();
-      console.error('Inquiry delivery failed:', error);
-
-      const deliveryMessage = error?.message || 'Inquiry could not be sent automatically.';
-      this.showStatus(`${deliveryMessage} If this is your first setup, please also open the activation email sent to shivamdwivedi280708@gmail.com and click "Activate Form" once.`, 'error');
-    } finally {
-      this.setSubmittingState(false);
-    }
+    window.setTimeout(() => {
+      this.contactForm.submit();
+    }, 150);
   }
 }
 
