@@ -1,5 +1,5 @@
 // ============================================
-// PROFESSIONAL FORM HANDLER WITH ANIMATIONS
+// PROFESSIONAL FORM HANDLER WITH REAL EMAIL DELIVERY
 // ============================================
 
 class FormHandler {
@@ -7,6 +7,8 @@ class FormHandler {
     this.contactForm = document.getElementById('contactForm');
     this.successContainer = null;
     this.loadingSpinner = null;
+    this.statusElement = document.getElementById('formStatus');
+    this.submitButton = this.contactForm?.querySelector('button[type="submit"]') || null;
     this.init();
   }
 
@@ -44,7 +46,7 @@ class FormHandler {
       <div class="success-box">
         <div class="success-icon">✓</div>
         <h2 class="success-title">Thank You!</h2>
-        <p class="success-message">Your message has been received with 5-star quality processing! 📸</p>
+        <p class="success-message">Your inquiry has been sent successfully! 📸</p>
         <div class="success-details">
           <strong>What Happens Next?</strong>
           <p>✓ We've captured your inquiry</p>
@@ -62,11 +64,15 @@ class FormHandler {
   }
 
   showLoading() {
-    this.loadingSpinner.classList.add('active');
+    if (this.loadingSpinner) {
+      this.loadingSpinner.classList.add('active');
+    }
   }
 
   hideLoading() {
-    this.loadingSpinner.classList.remove('active');
+    if (this.loadingSpinner) {
+      this.loadingSpinner.classList.remove('active');
+    }
   }
 
   showSuccess() {
@@ -76,7 +82,9 @@ class FormHandler {
   }
 
   hideSuccess() {
-    this.successContainer.classList.remove('show');
+    if (this.successContainer) {
+      this.successContainer.classList.remove('show');
+    }
   }
 
   playShutterEffect() {
@@ -97,10 +105,44 @@ class FormHandler {
       confetti.style.height = confetti.style.width;
       confetti.style.animation = `confettiFall ${2 + Math.random() * 1}s ease-out forwards`;
       confetti.style.animationDelay = Math.random() * 0.3 + 's';
-      
+
       document.body.appendChild(confetti);
-      
       setTimeout(() => confetti.remove(), 3000);
+    }
+  }
+
+  setSubmittingState(isSubmitting) {
+    if (!this.submitButton) {
+      return;
+    }
+
+    this.submitButton.disabled = isSubmitting;
+    this.submitButton.textContent = isSubmitting ? 'Sending...' : 'Send Message';
+    this.submitButton.style.opacity = isSubmitting ? '0.8' : '1';
+    this.submitButton.style.cursor = isSubmitting ? 'not-allowed' : 'pointer';
+  }
+
+  showStatus(message, type = 'error') {
+    if (!this.statusElement) {
+      return;
+    }
+
+    this.statusElement.textContent = message;
+    this.statusElement.style.display = 'block';
+    this.statusElement.style.marginTop = '1rem';
+    this.statusElement.style.padding = '0.9rem 1rem';
+    this.statusElement.style.borderRadius = '10px';
+    this.statusElement.style.fontWeight = '600';
+    this.statusElement.style.lineHeight = '1.5';
+    this.statusElement.style.background = type === 'success' ? 'rgba(34, 197, 94, 0.12)' : 'rgba(239, 68, 68, 0.12)';
+    this.statusElement.style.color = type === 'success' ? '#166534' : '#991b1b';
+    this.statusElement.style.border = type === 'success' ? '1px solid rgba(34, 197, 94, 0.25)' : '1px solid rgba(239, 68, 68, 0.25)';
+  }
+
+  clearStatus() {
+    if (this.statusElement) {
+      this.statusElement.textContent = '';
+      this.statusElement.style.display = 'none';
     }
   }
 
@@ -140,23 +182,51 @@ class FormHandler {
   }
 
   displayErrors(errors) {
-    // Clear all previous errors
     const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(msg => msg.textContent = '');
+    errorMessages.forEach((msg) => {
+      msg.textContent = '';
+    });
 
-    // Display new errors
-    Object.keys(errors).forEach(key => {
+    Object.keys(errors).forEach((key) => {
       const element = document.getElementById(key);
       if (element) {
         element.textContent = errors[key];
       }
     });
+
+    const firstError = Object.values(errors)[0];
+    if (firstError) {
+      this.showStatus(firstError, 'error');
+    }
+  }
+
+  async submitToFormSubmit(formData) {
+    const action = this.contactForm.getAttribute('action') || '';
+    const submitUrl = action.includes('/ajax/')
+      ? action
+      : action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+
+    const response = await fetch(submitUrl, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.success === 'false') {
+      throw new Error(result.message || 'We could not send your inquiry right now.');
+    }
+
+    return result;
   }
 
   async handleSubmit(e) {
     e.preventDefault();
+    this.clearStatus();
 
-    // Get form values
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -165,7 +235,6 @@ class FormHandler {
     const message = document.getElementById('message').value.trim();
     const terms = document.getElementById('terms').checked;
 
-    // Validate
     const errors = this.validateForm(name, email, service, subject, message, terms);
 
     if (Object.keys(errors).length > 0) {
@@ -173,40 +242,51 @@ class FormHandler {
       return;
     }
 
-    // Show loading
+    const formData = new FormData(this.contactForm);
+    formData.set('_captcha', 'false');
+    formData.set('_template', 'table');
+
+    if (window.location.protocol === 'file:') {
+      this.showStatus('To send real inquiries, open this page through a local server or your live website URL. FormSubmit will not deliver emails from file:// pages.', 'error');
+      return;
+    }
+
+    this.setSubmittingState(true);
     this.showLoading();
 
-    // Simulate processing (FormSubmit handles actual sending)
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      await this.submitToFormSubmit(formData);
 
-    // Hide loading
-    this.hideLoading();
+      this.hideLoading();
+      this.showStatus('Your inquiry has been sent successfully. Please also check your spam folder for the auto-reply.', 'success');
+      this.showSuccess();
+      this.contactForm.reset();
 
-    // Show success with animations
-    this.showSuccess();
+      setTimeout(() => {
+        this.hideSuccess();
+      }, 6000);
 
-    // Reset form
-    this.contactForm.reset();
+      console.log({
+        name,
+        email,
+        phone,
+        service,
+        subject,
+        message,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      this.hideLoading();
+      console.error('Inquiry delivery failed:', error);
 
-    // Auto hide success after 6 seconds
-    setTimeout(() => {
-      this.hideSuccess();
-    }, 6000);
-
-    // Log data (for debugging)
-    console.log({
-      name,
-      email,
-      phone,
-      service,
-      subject,
-      message,
-      timestamp: new Date().toISOString()
-    });
+      const deliveryMessage = error?.message || 'Inquiry could not be sent automatically.';
+      this.showStatus(`${deliveryMessage} If this is your first setup, please also open the activation email sent to shivamdwivedi280708@gmail.com and click "Activate Form" once.`, 'error');
+    } finally {
+      this.setSubmittingState(false);
+    }
   }
 }
 
-// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
   new FormHandler();
 });
