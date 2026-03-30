@@ -262,7 +262,7 @@ class AIPhotographyChatbot {
         • Reception & after-party
         • 1000+ edited photos
         • Album with premium binding<br><br>
-        <div class="service-price">Starting from ₹50,000+</div>
+        <div class="service-price">Starting from ₹25,000</div>
         <br><a href="services.html#wedding" target="_blank" style="color: #d4af37; text-decoration: underline;">Learn More</a> | <a href="contact.html" target="_blank" style="color: #d4af37; text-decoration: underline;">Book Now</a>
       `,
       passport: `
@@ -275,7 +275,7 @@ class AIPhotographyChatbot {
         • Digital & printed copies
         • Retouching included
         • Unlimited revisions<br><br>
-        <div class="service-price">₹300-500</div>
+        <div class="service-price">₹150 - ₹250</div>
         <br><a href="services.html#passport" target="_blank" style="color: #d4af37; text-decoration: underline;">Learn More</a> | <a href="contact.html" target="_blank" style="color: #d4af37; text-decoration: underline;">Book Now</a>
       `,
       drone: `
@@ -288,7 +288,7 @@ class AIPhotographyChatbot {
         • Event coverage
         • 4K video quality
         • Professional editing<br><br>
-        <div class="service-price">Starting from ₹15,000+</div>
+        <div class="service-price">Starting from ₹6,000</div>
         <br><a href="services.html#drone" target="_blank" style="color: #d4af37; text-decoration: underline;">Learn More</a> | <a href="contact.html" target="_blank" style="color: #d4af37; text-decoration: underline;">Book Now</a>
       `,
       grading: `
@@ -301,7 +301,7 @@ class AIPhotographyChatbot {
         • Batch processing
         • Cinematic look
         • Quick delivery<br><br>
-        <div class="service-price">Starting from ₹500+ per image</div>
+        <div class="service-price">Starting from ₹150 per image</div>
         <br><a href="services.html#grading" target="_blank" style="color: #d4af37; text-decoration: underline;">Learn More</a> | <a href="contact.html" target="_blank" style="color: #d4af37; text-decoration: underline;">Book Now</a>
       `
     };
@@ -331,16 +331,16 @@ class AIPhotographyChatbot {
     return `
       <strong>💰 Our Pricing</strong><br><br>
       <strong>Wedding Photography:</strong><br>
-      • Basic: ₹30,000<br>
-      • Professional: ₹50,000+<br>
-      • Premium: ₹100,000+<br><br>
+      • Basic: ₹15,000<br>
+      • Professional: ₹30,000<br>
+      • Premium: ₹60,000+<br><br>
       <strong>Passport Photos:</strong><br>
-      • Single photo: ₹300<br>
-      • Family pack (5): ₹1,200<br><br>
+      • Single photo set: ₹150<br>
+      • Family pack (5): ₹500<br><br>
       <strong>Drone Photography:</strong><br>
-      • Hourly: ₹5,000<br>
-      • Half-day: ₹15,000<br>
-      • Full-day: ₹25,000<br><br>
+      • Hourly: ₹3,000<br>
+      • Half-day: ₹6,000<br>
+      • Full-day: ₹10,000<br><br>
       <div class="quick-replies">
         <button class="quick-reply-btn" onclick="document.location='services.html'">See All Prices</button>
         <button class="quick-reply-btn" onclick="document.location='contact.html'">Get Custom Quote</button>
@@ -352,15 +352,14 @@ class AIPhotographyChatbot {
     return `
       <strong>📞 Contact Information</strong><br><br>
       <strong>Call Us:</strong><br>
-      📱 <a href="tel:+919827123456" style="color: #d4af37;">+91-9827123456</a><br><br>
+      📱 <a href="tel:+919993035235" style="color: #d4af37;">+91 9993035235</a><br><br>
       <strong>Email Us:</strong><br>
-      ✉️ <a href="mailto:hello@dollydigitalstudio.com" style="color: #d4af37;">hello@dollydigitalstudio.com</a><br>
-      ✉️ <a href="mailto:bookings@dollydigitalstudio.com" style="color: #d4af37;">bookings@dollydigitalstudio.com</a><br><br>
+      ✉️ <a href="mailto:shivamdwivedi280708@gmail.com" style="color: #d4af37;">shivamdwivedi280708@gmail.com</a><br><br>
       <strong>WhatsApp:</strong><br>
-      💬 <a href="https://wa.me/919827123456?text=Hi%20Shivam!%20I%20would%20like%20to%20inquire%20about%20your%20photography%20services." target="_blank" style="color: #d4af37;">Message us on WhatsApp</a><br><br>
+      💬 <a href="https://wa.me/919993035235?text=Hi%20Shivam!%20I%20would%20like%20to%20inquire%20about%20your%20photography%20services." target="_blank" style="color: #d4af37;">Message us on WhatsApp</a><br><br>
       <strong>Hours:</strong><br>
       Mon-Fri: 10AM - 8PM<br>
-      Sat-Sun: 11AM - 6PM IST
+      Sat-Sun: 11AM - 6PM
     `;
   }
 
@@ -369,8 +368,8 @@ class AIPhotographyChatbot {
       <strong>📍 Our Studio Location</strong><br><br>
       <strong>Address:</strong><br>
       Deendayal Colony, Mangla<br>
-      Bilaspur, Chhattisgarh (C.G)<br>
-      India 495001<br><br>
+      Bilaspur, Chhattisgarh, India<br>
+      Pincode - 495001<br><br>
       <div class="quick-replies">
         <button class="quick-reply-btn" onclick="document.location='contact.html'">📍 View on Map</button>
         <button class="quick-reply-btn" onclick="document.location='contact.html'">📞 Get Directions</button>
@@ -425,13 +424,13 @@ class AIPhotographyChatbot {
     return `
       <strong>✈️ Travel Services</strong><br><br>
       <strong>We Cover:</strong><br>
-      ✓ Bilaspur & nearby cities<br>
-      ✓ All cities in Chhattisgarh<br>
-      ✓ National destinations<br><br>
+      ✓ Bilaspur city bookings<br>
+      ✓ Nearby cities in Chhattisgarh<br>
+      ✓ Outstation destinations across India<br><br>
       <strong>Travel Fees:</strong><br>
-      • Within 50km: Free<br>
-      • 50-200km: +₹5,000<br>
-      • Beyond 200km: Custom quote<br><br>
+      • Within 20km: Free<br>
+      • 20-100km: +₹2,000<br>
+      • Beyond 100km: Custom quote<br><br>
       <a href="contact.html" style="color: #d4af37; text-decoration: underline;">Get a custom quote for your location</a>
     `;
   }
@@ -458,11 +457,11 @@ class AIPhotographyChatbot {
     return `
       <strong>⭐ Client Testimonials</strong><br><br>
       <strong>"The wedding photos are absolutely breathtaking!"</strong><br>
-      — Priya & Arjun, Delhi<br><br>
+      — Priya & Arjun, Bilaspur<br><br>
       <strong>"Professional & incredibly detail-oriented!"</strong><br>
-      — Rahul Sharma, Bangalore<br><br>
+      — Rahul Sharma, Raipur<br><br>
       <strong>"My passport photos were accepted on the first try!"</strong><br>
-      — Ananya Kapoor, Mumbai<br><br>
+      — Ananya Kapoor, Bilaspur<br><br>
       <div class="quick-replies">
         <button class="quick-reply-btn" onclick="document.location='index.html#testimonials'">⭐ Read All Reviews</button>
       </div>
@@ -473,8 +472,8 @@ class AIPhotographyChatbot {
     return `
       <strong>💳 Payment Methods</strong><br><br>
       We accept:<br>
+      ✓ UPI (Google Pay, PhonePe, Paytm)<br>
       ✓ Credit/Debit Cards<br>
-      ✓ UPI (Google Pay, PhonePe, etc.)<br>
       ✓ Bank Transfers<br>
       ✓ Digital Wallets<br>
       ✓ Cash (studio visits only)<br><br>
