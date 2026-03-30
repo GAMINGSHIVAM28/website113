@@ -7,21 +7,35 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('nav-menu');
 
-  if (hamburger) {
-    hamburger.addEventListener('click', function() {
-      navMenu.classList.toggle('active');
-      hamburger.classList.toggle('active');
-    });
-  }
-
-  // Close mobile menu when a link is clicked
-  const navLinks = navMenu.querySelectorAll('a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
+  if (hamburger && navMenu) {
+    const closeMenu = () => {
       navMenu.classList.remove('active');
       hamburger.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    };
+
+    hamburger.addEventListener('click', function() {
+      const isActive = navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      document.body.classList.toggle('menu-open', isActive);
     });
-  });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', function(event) {
+      if (navMenu.classList.contains('active') && !navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        closeMenu();
+      }
+    });
+  }
 
   // Enhanced Gallery Filter with smooth animations
   const filterButtons = document.querySelectorAll('.filter-btn');

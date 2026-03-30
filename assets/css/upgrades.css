@@ -448,3 +448,152 @@ body.dark-mode footer {
     height: 250px;
   }
 }
+
+/* GLOBAL POLISH & PERFORMANCE TUNING */
+:root {
+  --primary-color: #0f172a;
+  --secondary-color: #f4c95d;
+  --accent-color: #ff7a59;
+  --text-dark: #182033;
+  --text-muted: #52607a;
+  --text-soft: #eef4ff;
+  --bg-light: #f7f9fc;
+  --bg-dark: #0b1120;
+  --border-color: rgba(15, 23, 42, 0.12);
+}
+
+header,
+footer {
+  background: linear-gradient(135deg, #0b1120 0%, #111827 45%, #172554 100%);
+}
+
+.hero,
+.page-header,
+.about-hero,
+.awards-section,
+.process-section,
+.stats-section,
+.why-us,
+.mission-section {
+  background-image:
+    radial-gradient(circle at top left, rgba(244, 201, 93, 0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(255, 122, 89, 0.16), transparent 30%),
+    linear-gradient(135deg, #0f172a 0%, #172554 48%, #1d4e89 100%) !important;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #f4c95d 0%, #ffb15a 45%, #ff7a59 100%) !important;
+  color: #0f172a !important;
+}
+
+.cta-section h2,
+.cta-section p,
+.cta-section .btn-primary:hover {
+  color: #0f172a !important;
+}
+
+.hero-description,
+.page-header p,
+.about-hero p,
+.feature-item p,
+.mvv-card p,
+.award-card p,
+.process-card p,
+.stat-card p,
+.footer-section p,
+.footer-bottom {
+  color: #eef4ff !important;
+}
+
+.service-card p,
+.story-text p,
+.founder-info p,
+.skill-list li,
+.service-text > p,
+.service-list li,
+.package-list li,
+.testimonial-card p,
+.testimonial-author span,
+.info-card p,
+.info-card-item p,
+.timing,
+.studio-details-box p,
+.faq-item p,
+.pricing-info p,
+.social-channels p,
+.shop-detail-item p {
+  color: #4b5a74 !important;
+}
+
+.service-card,
+.feature-item,
+.testimonial-card,
+.package-card,
+.gallery-item,
+.award-card,
+.process-card,
+.stat-card,
+.info-card,
+.info-card-item,
+.faq-item,
+.skill-category,
+.form-wrapper,
+.map-container,
+.shop-detail-item {
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.10);
+  border-color: rgba(15, 23, 42, 0.08);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.services-preview,
+.why-us,
+.testimonials,
+.page-header,
+.service-section,
+.process-section,
+.packages-section,
+.gallery-section,
+.stats-section,
+.story-section,
+.founder-section,
+.mission-section,
+.skills-section,
+.awards-section,
+.studio-info-section,
+.contact-form-map-section,
+.faq-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .service-card:hover,
+  .feature-item:hover,
+  .testimonial-card:hover,
+  .package-card:hover,
+  .award-card:hover,
+  .process-card:hover,
+  .stat-card:hover,
+  .info-card:hover,
+  .info-card-item:hover,
+  .faq-item:hover,
+  .gallery-item:hover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

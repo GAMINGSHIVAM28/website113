@@ -31,7 +31,7 @@ class UpgradeFeatures {
       } else {
         button.classList.remove('show');
       }
-    });
+    }, { passive: true });
 
     button.addEventListener('click', () => {
       window.scrollTo({
@@ -80,7 +80,7 @@ class UpgradeFeatures {
       if (window.pageYOffset > 300) {
         button.classList.add('show');
       }
-    });
+    }, { passive: true });
   }
 
   // ===== TESTIMONIALS SLIDER =====
