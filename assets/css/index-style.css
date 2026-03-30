@@ -1,0 +1,368 @@
+/* ============================================
+   INDEX PAGE - HOME STYLES
+   ============================================ */
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2d2d2d 100%);
+  color: var(--text-light);
+  padding: 5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.hero-content {
+  animation: slideInLeft 0.8s ease;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.hero-description {
+  font-size: 1.3rem;
+  color: #ddd;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  animation: slideInRight 0.8s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 2px solid var(--secondary-color);
+  opacity: 0.9;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* SERVICES PREVIEW SECTION */
+.services-preview {
+  padding: 5rem 2rem;
+  background-color: var(--bg-light);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.service-card {
+  background: var(--text-light);
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid #eee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  animation: scaleIn 0.6s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--secondary-color);
+}
+
+.service-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.service-card p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  min-height: 60px;
+}
+
+.read-more {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.read-more:hover {
+  color: var(--accent-color);
+  transform: translateX(5px);
+}
+
+/* WHY US SECTION */
+.why-us {
+  padding: 5rem 2rem;
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-item {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--secondary-color);
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(10px);
+}
+
+.feature-item .number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.feature-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-item p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* TESTIMONIALS SECTION */
+.testimonials {
+  padding: 5rem 2rem;
+  background-color: var(--bg-light);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial-card {
+  background: var(--text-light);
+  padding: 2rem;
+  border-radius: 15px;
+  border-top: 4px solid var(--secondary-color);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.stars {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.2rem;
+}
+
+.stars i::after {
+  content: ' ';
+  margin-right: 0.2rem;
+}
+
+.testimonial-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: block;
+  color: var(--primary-color);
+}
+
+.testimonial-author strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+}
+
+.testimonial-author span {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2d2d2d 100%);
+  color: var(--text-light);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ddd;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .hero-img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .service-card,
+  .feature-item,
+  .testimonial-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .cta-section {
+    padding: 2rem 1rem;
+  }
+}

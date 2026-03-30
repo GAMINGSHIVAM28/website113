@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Dolly Digital Studio</title>
+  <link rel="stylesheet" href="assets/css/common.css">
+  <link rel="stylesheet" href="assets/css/contact-style-new.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/upgrades.css">
+  <link rel="stylesheet" href="assets/css/ai-chatbot.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER/NAVIGATION -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">📸 Dolly Digital Studio</a>
+      <nav id="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Contact Dolly Digital Studio</h1>
+      <p>Get in touch with us for your photography needs. We're here to help!</p>
+    </div>
+  </section>
+
+  <!-- STUDIO INFO CARDS SECTION -->
+  <section class="studio-info-section">
+    <div class="container">
+      <div class="info-cards-grid">
+        <div class="info-card-item">
+          <div class="icon-box">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3>Visit Us</h3>
+          <p>Deendayal Colony, Mangla<br>Bilaspur, Chhattisgarh (C.G)<br>India 495001</p>
+        </div>
+
+        <div class="info-card-item">
+          <div class="icon-box">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3>Call Us</h3>
+          <p><a href="tel:+919827123456">+91-9827123456</a></p>
+          <p class="timing">Mon - Fri: 10AM - 8PM<br>Sat - Sun: 11AM - 6PM</p>
+        </div>
+
+        <div class="info-card-item">
+          <div class="icon-box">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email Us</h3>
+          <p><a href="mailto:hello@dollydigitalstudio.com">hello@dollydigitalstudio.com</a></p>
+          <p><a href="mailto:bookings@dollydigitalstudio.com">bookings@dollydigitalstudio.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & MAP SECTION -->
+  <section class="contact-form-map-section">
+    <div class="container">
+      <div class="two-column-layout">
+        <!-- Contact Form Column -->
+        <div class="form-column">
+          <div class="form-wrapper">
+            <h2>Send Us Your Inquiry</h2>
+            <form id="contactForm" class="contact-form" action="https://formsubmit.co/shivamdwivedi280708@gmail.com" method="POST">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 (000) 000-0000">
+              </div>
+
+              <div class="form-group">
+                <label for="service">Service Interested In *</label>
+                <select id="service" name="service" required>
+                  <option value="">Select a service</option>
+                  <option value="wedding">Wedding Photography</option>
+                  <option value="portrait">Portrait Photography</option>
+                  <option value="event">Event Photography</option>
+                  <option value="product">Product Photography</option>
+                  <option value="drone">Drone Photography</option>
+                  <option value="editing">Photo Editing</option>
+                  <option value="other">Other Service</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <input type="text" id="subject" name="subject" required placeholder="What is this about?">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project..."></textarea>
+              </div>
+
+              <div class="form-group checkbox">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the terms and conditions</label>
+              </div>
+
+              <input type="hidden" name="_cc" value="hello@dollydigitalstudio.com">
+              <input type="hidden" name="_autoresponse" value="Thanks for contacting us! We'll get back to you within 24 hours.">
+
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Map Column -->
+        <div class="map-column">
+          <div class="map-container">
+            <h2>Our Studio Location</h2>
+            <div class="map-wrapper">
+              <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sin!4v1770623165404!5m2!1sen!2sin!6m8!1m7!1sY6GjGki7ysxea56Z-fiycA!2m2!1d22.11078521006825!2d82.11846197791024!3f97.99692896779906!4f-0.4239161620650975!5f0.7820865974627469" width="100%" height="450" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="studio-details-box">
+              <h3>Dolly Digital Studio</h3>
+              <p><strong>Deendayal Colony, Mangla</strong></p>
+              <p><strong>Bilaspur, Chhattisgarh (C.G)</strong></p>
+              <p>PIN: 495001</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>How far in advance should I book?</h3>
+          <p>We recommend booking at least 2-3 months in advance for weddings and events. However, we accept rush bookings depending on our current availability. Contact us to check!</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is your cancellation policy?</h3>
+          <p>A non-refundable deposit of 30% is required to hold your date. The remaining balance is due 7 days before your event. Please contact us for cancellation details.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How long to receive edited photos?</h3>
+          <p>edited photos are typically delivered within 2-3 weeks. We offer express delivery options for an additional fee if you need them sooner.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Do you offer unlimited revisions?</h3>
+          <p>Yes! We offer unlimited revisions on all our photo editing packages until you're completely satisfied. Your satisfaction is our top priority.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Do you provide travel services?</h3>
+          <p>Yes, we provide photography services locally and nationally. Travel fees may apply for destinations outside Bilaspur. Contact us for specific quotes and details.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What payment methods do you accept?</h3>
+          <p>We accept all major credit cards, debit cards, bank transfers, and digital payment methods like UPI. A deposit is required to confirm your booking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>💛 Dolly Digital Studio</h3>
+        <p>Professional photography and digital services specializing in weddings, portraits, events, and creative visual storytelling.</p>
+        <div class="social-links">
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="services.html#wedding">Wedding Photography</a></li>
+          <li><a href="services.html#portrait">Portrait Photography</a></li>
+          <li><a href="services.html#event">Event Photography</a></li>
+          <li><a href="services.html#drone">Drone Photography</a></li>
+          <li><a href="services.html#editing">Photo Editing</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Information</h3>
+        <p><i class="fas fa-phone"></i> <a href="tel:+919827123456">+91-9827123456</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:hello@dollydigitalstudio.com">hello@dollydigitalstudio.com</a></p>
+        <p><i class="fas fa-map-marker-alt"></i> Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, C.G 495001</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dolly Digital Studio. All rights reserved. | Professional Photography Services</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/contact-script.js"></script>
+  <script src="assets/js/form-handler.js"></script>
+  <script src="assets/js/upgrades.js"></script>
+  <script src="assets/js/ai-chatbot.js"></script>
+</body>
+</html>

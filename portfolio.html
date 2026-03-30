@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Dolly Digital Studio</title>
+  <link rel="stylesheet" href="assets/css/common.css">
+  <link rel="stylesheet" href="assets/css/portfolio-style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/upgrades.css">
+  <link rel="stylesheet" href="assets/css/ai-chatbot.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER/NAVIGATION -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">📸 Dolly Digital Studio</a>
+      <nav id="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Our Portfolio</h1>
+      <p>A collection of our finest work and stunning visual moments</p>
+    </div>
+  </section>
+
+  <!-- FILTER BUTTONS -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="wedding">Weddings</button>
+        <button class="filter-btn" data-filter="portraits">Portraits</button>
+        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn" data-filter="drone">Drone</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-grid" id="gallery">
+        <!-- Wedding -->
+        <div class="gallery-item wedding" data-category="wedding">
+          <div class="gallery-image">
+            <img src="assets/images/image1.jpeg" alt="Wedding Ceremony" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Wedding Ceremony</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item wedding" data-category="wedding">
+          <div class="gallery-image">
+            <img src="assets/images/image2.jpeg" alt="Bride & Groom" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Bride & Groom</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item wedding" data-category="wedding">
+          <div class="gallery-image">
+            <img src="assets/images/image3.jpeg" alt="Reception Moments" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Reception Moments</h3>
+            <p>2025</p>
+          </div>
+        </div>
+
+        <!-- Portraits -->
+        <div class="gallery-item portraits" data-category="portraits">
+          <div class="gallery-image">
+            <img src="assets/images/image4.jpeg" alt="Professional Portrait" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Professional Portrait</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item portraits" data-category="portraits">
+          <div class="gallery-image">
+            <img src="assets/images/image5.jpeg" alt="Studio Session" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Studio Session</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item portraits" data-category="portraits">
+          <div class="gallery-image">
+            <img src="assets/images/image6.jpeg" alt="Headshot Series" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Headshot Series</h3>
+            <p>2025</p>
+          </div>
+        </div>
+
+        <!-- Events -->
+        <div class="gallery-item events" data-category="events">
+          <div class="gallery-image">
+            <img src="assets/images/image7.jpeg" alt="Corporate Event" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Corporate Event</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item events" data-category="events">
+          <div class="gallery-image">
+            <img src="assets/images/image8.jpeg" alt="Birthday Party" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Birthday Party</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item events" data-category="events">
+          <div class="gallery-image">
+            <img src="assets/images/image9.jpeg" alt="Celebration" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Celebration</h3>
+            <p>2025</p>
+          </div>
+        </div>
+
+        <!-- Drone -->
+        <div class="gallery-item drone" data-category="drone">
+          <div class="gallery-image">
+            <img src="assets/images/image10.jpeg" alt="Aerial Landscape" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Aerial Landscape</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item drone" data-category="drone">
+          <div class="gallery-image">
+            <img src="assets/images/image11.jpeg" alt="Drone Photography" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Drone Photography</h3>
+            <p>2026</p>
+          </div>
+        </div>
+
+        <div class="gallery-item drone" data-category="drone">
+          <div class="gallery-image">
+            <img src="assets/images/image12.jpeg" alt="Aerial View" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <h3>Aerial View</h3>
+            <p>2025</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <p>Projects Completed</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1000+</div>
+          <p>Happy Clients</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">50K+</div>
+          <p>Photos Captured</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <p>Years Experience</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Love What You See?</h2>
+      <p>Let's create beautiful memories together</p>
+      <a href="contact.html" class="btn btn-primary">Book Your Session</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>PixelArt Studio</h3>
+        <p>Professional photography services specializing in weddings, events, and creative visual storytelling.</p>
+        <div class="social-links">
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="services.html#wedding">Wedding Photography</a></li>
+          <li><a href="services.html#passport">Passport Photos</a></li>
+          <li><a href="services.html#drone">Drone Photography</a></li>
+          <li><a href="services.html#grading">Color Grading</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <ul>
+          <li><i class="fas fa-phone"></i> <a href="tel:+919827123456">+91-9827123456</a></li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:hello@dollydigitalstudio.com">hello@dollydigitalstudio.com</a></li>
+          <li><i class="fas fa-map-marker-alt"></i> Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, C.G 495001</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dolly Digital Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/portfolio-script.js"></script>
+  <script src="assets/js/form-handler.js"></script>
+  <script src="assets/js/upgrades.js"></script>
+  <script src="assets/js/ai-chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+/* ============================================
+   SERVICES PAGE STYLES
+   ============================================ */
+
+/* PAGE HEADER */
+.page-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2d2d2d 100%);
+  color: var(--text-light);
+  padding: 5rem 2rem;
+  text-align: center;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.page-header p {
+  font-size: 1.3rem;
+  color: #ddd;
+}
+
+/* SERVICE SECTIONS */
+.service-section {
+  padding: 5rem 2rem;
+  background-color: var(--bg-light);
+}
+
+.service-section.alternate {
+  background-color: var(--text-light);
+}
+
+.service-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.service-text h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.service-text > p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.service-list {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.service-list li {
+  padding: 0.7rem 0;
+  color: #555;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.service-list i {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.service-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-box {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 107, 107, 0.15));
+  border: 2px solid var(--secondary-color);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  color: var(--secondary-color);
+  text-align: center;
+  font-weight: 300;
+}
+
+.image-box p {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.pricing-info {
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.pricing-info p {
+  margin: 0.5rem 0;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.pricing-info p strong {
+  color: var(--secondary-color);
+}
+
+/* PROCESS SECTION */
+.process-section {
+  padding: 5rem 2rem;
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.process-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.process-card:hover {
+  border-color: var(--secondary-color);
+  background: rgba(212, 175, 55, 0.1);
+  transform: translateY(-10px);
+}
+
+.process-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.process-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.process-card p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* PACKAGES SECTION */
+.packages-section {
+  padding: 5rem 2rem;
+  background-color: var(--bg-light);
+}
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.package-card {
+  background: var(--text-light);
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  text-align: center;
+  border: 2px solid #eee;
+  transition: var(--transition);
+  position: relative;
+}
+
+.package-card.featured {
+  border-color: var(--secondary-color);
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.package-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.package-card .price {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.package-list {
+  list-style: none;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.package-list li {
+  padding: 0.7rem 0;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.package-list li:last-child {
+  border-bottom: none;
+}
+
+.package-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.package-card.featured:hover {
+  transform: scale(1.1);
+  box-shadow: 0 30px 60px rgba(212, 175, 55, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .page-header p {
+    font-size: 1.1rem;
+  }
+
+  .service-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .image-box {
+    width: 100%;
+    height: 250px;
+  }
+
+  .service-section.alternate .service-content {
+    flex-direction: column-reverse;
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .package-card.featured {
+    transform: scale(1.02);
+  }
+
+  .package-card:hover {
+    transform: scale(1.02);
+  }
+
+  .package-card.featured:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 3rem 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .service-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .service-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-text > p {
+    font-size: 1rem;
+  }
+
+  .image-box {
+    height: 200px;
+    font-size: 3rem;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-card.featured {
+    transform: scale(1);
+  }
+
+  .package-card:hover {
+    transform: scale(1);
+  }
+}
