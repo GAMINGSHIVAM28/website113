@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - Dolly Digital Studio</title>
+  <meta name="description" content="Book your shoot with Dolly Digital Studio in Bilaspur, Chhattisgarh. Contact us for wedding, portrait, event, and drone photography.">
+  <meta name="keywords" content="book photographer Bilaspur, contact photography studio, wedding inquiry, photo booking">
+  <meta name="author" content="Dolly Digital Studio">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="Book a Shoot | Dolly Digital Studio">
+  <meta property="og:description" content="Contact Dolly Digital Studio to book your next wedding, portrait, event, or commercial shoot.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dollydigitalstudio.com/contact.html">
+  <meta property="og:image" content="https://dollydigitalstudio.com/assets/images/hero-image.jpeg">
+  <link rel="canonical" href="https://dollydigitalstudio.com/contact.html">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
   <link rel="stylesheet" href="assets/css/common.css">
   <link rel="stylesheet" href="assets/css/contact-style-new.css">
   <link rel="stylesheet" href="assets/css/animations.css">
@@ -75,13 +88,14 @@
   </section>
 
   <!-- CONTACT & MAP SECTION -->
-  <section class="contact-form-map-section">
+  <section class="contact-form-map-section" id="booking">
     <div class="container">
       <div class="two-column-layout">
         <!-- Contact Form Column -->
         <div class="form-column">
           <div class="form-wrapper">
-            <h2>Send Us Your Inquiry</h2>
+            <h2>Book Your Shoot</h2>
+            <p style="color:#52607a; margin-bottom:1.5rem; line-height:1.7;">Share your date, location, and budget to get a fast quote and availability update within 24 hours.</p>
             <form id="contactForm" class="contact-form" action="https://formsubmit.co/shivamdwivedi280708@gmail.com" method="POST">
               <div class="form-group">
                 <label for="name">Full Name *</label>
@@ -96,6 +110,27 @@
               <div class="form-group">
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" placeholder="+91 (000) 000-0000">
+              </div>
+
+              <div class="form-group">
+                <label for="eventDate">Preferred Shoot Date</label>
+                <input type="date" id="eventDate" name="event_date">
+              </div>
+
+              <div class="form-group">
+                <label for="shootLocation">Shoot Location</label>
+                <input type="text" id="shootLocation" name="shoot_location" placeholder="Bilaspur, Raipur, venue name, etc.">
+              </div>
+
+              <div class="form-group">
+                <label for="budget">Estimated Budget</label>
+                <select id="budget" name="budget">
+                  <option value="">Select your budget</option>
+                  <option value="under-10000">Under ₹10,000</option>
+                  <option value="10000-25000">₹10,000 - ₹25,000</option>
+                  <option value="25000-50000">₹25,000 - ₹50,000</option>
+                  <option value="50000-plus">₹50,000+</option>
+                </select>
               </div>
 
               <div class="form-group">
@@ -128,7 +163,8 @@
               </div>
 
               <input type="hidden" name="_cc" value="shivamdwivedi280708@gmail.com">
-              <input type="hidden" name="_autoresponse" value="Thanks for contacting us! We'll get back to you within 24 hours.">
+              <input type="hidden" name="_subject" value="New Booking Inquiry - Dolly Digital Studio">
+              <input type="hidden" name="_autoresponse" value="Thanks for contacting Dolly Digital Studio! We'll get back to you within 24 hours with availability and next steps.">
 
               <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
