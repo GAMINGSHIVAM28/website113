@@ -278,7 +278,6 @@ class FormHandler {
     }
 
     const successUrl = `${window.location.origin}${window.location.pathname}?submitted=1${window.location.hash || ''}`;
-    this.ensureHiddenField('form-name', 'contact');
     this.ensureHiddenField('_next', successUrl);
     this.ensureHiddenField('_captcha', 'false');
     this.ensureHiddenField('_template', 'table');
@@ -288,26 +287,39 @@ class FormHandler {
     this.showStatus('Sending your inquiry...', 'success');
 
     try {
+      const formAction = this.contactForm.getAttribute('action') || 'https://formsubmit.co/shivamdwivedi280708@gmail.com';
+      const ajaxEndpoint = formAction.replace('formsubmit.co/', 'formsubmit.co/ajax/');
       const formData = new FormData(this.contactForm);
-      const encodedData = new URLSearchParams(formData).toString();
-      const response = await fetch('/', {
+
+      const response = await fetch(ajaxEndpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          Accept: 'application/json'
         },
-        body: encodedData
+        body: formData
       });
 
+      const result = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        throw new Error(`Submission failed with status ${response.status}`);
+        throw new Error(result.message || `Submission failed with status ${response.status}`);
       }
 
+      this.contactForm.reset();
+      this.setMinimumEventDate();
       window.location.href = successUrl;
     } catch (error) {
       console.error('Contact form submission failed:', error);
       this.hideLoading();
       this.setSubmittingState(false);
-      this.showStatus('Sorry, something went wrong while sending your inquiry. Please try again or contact us on WhatsApp.', 'error');
+
+      const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      this.showStatus(
+        isOffline
+          ? 'You appear to be offline. Please reconnect and try again.'
+          : 'Sorry, your message could not be sent right now. Please try again in a moment or contact us on WhatsApp.',
+        'error'
+      );
     }
   }
 }
