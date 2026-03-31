@@ -36,8 +36,32 @@
 .hero-description {
   font-size: 1.3rem;
   color: #ddd;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   font-weight: 300;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.75rem;
+}
+
+.hero-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(244, 201, 93, 0.28);
+  color: #f8fbff;
+  font-size: 0.92rem;
+  backdrop-filter: blur(10px);
+}
+
+.hero-badges i {
+  color: var(--secondary-color);
 }
 
 .hero-cta {
@@ -51,16 +75,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .hero-img {
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
   object-fit: cover;
   border-radius: 20px;
   border: 2px solid var(--secondary-color);
-  opacity: 0.9;
+  opacity: 0.95;
   animation: float 3s ease-in-out infinite;
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.35);
+}
+
+.hero-floating-card {
+  position: absolute;
+  right: -10px;
+  bottom: 25px;
+  max-width: 260px;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(244, 201, 93, 0.35);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.28);
+}
+
+.floating-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  margin-bottom: 0.35rem;
+}
+
+.hero-floating-card strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.hero-floating-card p {
+  color: #dbe5f5;
+  font-size: 0.88rem;
 }
 
 @keyframes float {
@@ -167,6 +226,187 @@
 .read-more:hover {
   color: var(--accent-color);
   transform: translateX(5px);
+}
+
+.trust-strip {
+  padding: 0 2rem 2rem;
+  margin-top: -1rem;
+}
+
+.trust-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.trust-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+}
+
+.trust-item strong {
+  display: block;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.trust-item span {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.signature-showcase,
+.experience-section {
+  padding: 5rem 2rem;
+}
+
+.signature-showcase {
+  background: linear-gradient(180deg, #fffefb 0%, #fff7eb 100%);
+}
+
+.eyebrow {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  max-width: 720px;
+  margin: -1.75rem auto 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-auto-rows: 250px;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.showcase-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  min-height: 250px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
+}
+
+.showcase-card-large {
+  grid-row: span 2;
+}
+
+.showcase-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.82) 100%);
+  z-index: 1;
+}
+
+.showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.showcase-card:hover img {
+  transform: scale(1.06);
+}
+
+.showcase-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.35rem;
+  color: #fff;
+  z-index: 2;
+}
+
+.showcase-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.35rem;
+}
+
+.showcase-content p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+}
+
+.showcase-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+  background: rgba(244, 201, 93, 0.2);
+  border: 1px solid rgba(244, 201, 93, 0.5);
+  color: #fff7d6;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experience-section {
+  background: #ffffff;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.experience-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+  transition: var(--transition);
+}
+
+.experience-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+
+.step-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  background: linear-gradient(135deg, var(--secondary-color), #ffe4a2);
+}
+
+.experience-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.experience-card p {
+  color: var(--text-muted);
 }
 
 /* WHY US SECTION */
@@ -316,9 +556,31 @@
     flex-direction: column;
   }
 
+  .hero-badges {
+    justify-content: center;
+  }
+
   .hero-img {
     width: 300px;
     height: 300px;
+  }
+
+  .hero-floating-card {
+    position: static;
+    margin-top: 1rem;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(240px, auto);
+  }
+
+  .showcase-card-large {
+    grid-row: span 1;
   }
 
   .services-grid {
@@ -356,9 +618,19 @@
     height: 250px;
   }
 
+  .hero-badges span {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
   .service-card,
   .feature-item,
-  .testimonial-card {
+  .testimonial-card,
+  .experience-card {
     padding: 1.5rem 1rem;
   }
 

@@ -2,8 +2,8 @@
 // INDEX PAGE - ENHANCED JAVASCRIPT
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Mobile Menu Toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('nav-menu');
 
@@ -14,148 +14,155 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.remove('menu-open');
     };
 
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', () => {
       const isActive = navMenu.classList.toggle('active');
       hamburger.classList.toggle('active');
       document.body.classList.toggle('menu-open', isActive);
     });
 
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
+    navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', (event) => {
       if (navMenu.classList.contains('active') && !navMenu.contains(event.target) && !hamburger.contains(event.target)) {
         closeMenu();
       }
     });
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
         closeMenu();
       }
     });
   }
 
-  // Smooth scroll for navigation links
-  const links = document.querySelectorAll('a[href^="#"]');
-  links.forEach(link => {
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', function(e) {
       const href = this.getAttribute('href');
-      if (href !== '#' && document.querySelector(href)) {
+      const target = href && href !== '#' ? document.querySelector(href) : null;
+
+      if (target) {
         e.preventDefault();
-        const target = document.querySelector(href);
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
 
-  // Enhanced Intersection Observer with staggered animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+  const revealTargets = document.querySelectorAll('.service-card, .feature-item, .testimonial-card, .trust-item, .showcase-card, .experience-card');
+
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    revealTargets.forEach((element) => element.classList.add('reveal-up'));
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -70px 0px'
+    });
+
+    revealTargets.forEach((element) => revealObserver.observe(element));
+  } else {
+    revealTargets.forEach((element) => element.classList.add('is-visible'));
+  }
+
+  const counterElements = document.querySelectorAll('[data-count]');
+  const animateCounter = (element) => {
+    const target = Number(element.dataset.count || 0);
+    const suffix = element.dataset.suffix || '';
+    const formatter = new Intl.NumberFormat('en-IN');
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const updateCount = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+      element.textContent = `${formatter.format(value)}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        element.textContent = `${formatter.format(target)}${suffix}`;
+      }
+    };
+
+    requestAnimationFrame(updateCount);
   };
 
-  let elementIndex = 0;
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const delay = (elementIndex % 3) * 100;
-        entry.target.style.animationDelay = delay + 'ms';
-        entry.target.classList.add('fade-in');
-        observer.unobserve(entry.target);
-      }
-      elementIndex++;
+  if (!prefersReducedMotion && counterElements.length && 'IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.45 });
+
+    counterElements.forEach((counter) => counterObserver.observe(counter));
+  } else {
+    counterElements.forEach((counter) => {
+      counter.textContent = `${new Intl.NumberFormat('en-IN').format(Number(counter.dataset.count || 0))}${counter.dataset.suffix || ''}`;
     });
-  }, observerOptions);
-
-  // Observe all service cards and feature items
-  const observableElements = document.querySelectorAll('.service-card, .feature-item, .testimonial-card');
-  observableElements.forEach(element => {
-    observer.observe(element);
-  });
-
-  // Parallax effect for hero section
-  const hero = document.querySelector('.hero-section');
-  if (hero) {
-    window.addEventListener('scroll', debounce(() => {
-      const scrollY = window.scrollY;
-      hero.style.transform = `translateY(${scrollY * 0.5}px)`;
-    }, 10), { passive: true });
   }
 
-  // Mouse hover effects for cards
-  document.querySelectorAll('.service-card, .feature-item, .testimonial-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-10px)';
-    });
-    card.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0)';
-    });
-  });
+  const hero = document.querySelector('.hero');
+  const heroImage = document.querySelector('.hero-img');
 
-  // Debounce function for performance
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+  if (!prefersReducedMotion && hero && heroImage) {
+    let scrollOffset = 0;
+
+    const applyHeroTransform = (rotateX = 0, rotateY = 0) => {
+      heroImage.style.transform = `translateY(${scrollOffset}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
-  }
-});
 
-// Add enhanced animations to CSS
-const style = document.createElement('style');
-style.textContent = `
-  .fade-in {
-    animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+    window.addEventListener('scroll', () => {
+      scrollOffset = Math.min(window.scrollY * 0.08, 18);
+      applyHeroTransform();
+    }, { passive: true });
+
+    hero.addEventListener('mousemove', (event) => {
+      const rect = hero.getBoundingClientRect();
+      const rotateY = ((event.clientX - rect.left) / rect.width - 0.5) * 7;
+      const rotateX = ((event.clientY - rect.top) / rect.height - 0.5) * -7;
+      applyHeroTransform(rotateX, rotateY);
+    });
+
+    hero.addEventListener('mouseleave', () => applyHeroTransform());
   }
 
-  @keyframes fadeInUp {
-    from {
+  const style = document.createElement('style');
+  style.textContent = `
+    .reveal-up {
       opacity: 0;
-      transform: translateY(40px);
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    to {
+
+    .reveal-up.is-visible,
+    .is-visible {
       opacity: 1;
       transform: translateY(0);
     }
-  }
 
-  @keyframes glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
-  }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+      transition: transform 0.3s ease;
+    }
 
-  .service-card, .feature-item, .testimonial-card {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
-  }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-    transition: transform 0.3s ease;
-  }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+      transition: transform 0.3s ease;
+    }
+  `;
 
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-    transition: transform 0.3s ease;
-  }
-
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
-  }
-`;
-document.head.appendChild(style);
+  document.head.appendChild(style);
+});

@@ -22,6 +22,30 @@
   color: #ddd;
 }
 
+.page-header-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.page-header-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(244, 201, 93, 0.35);
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.page-header-badges i {
+  color: var(--secondary-color);
+}
+
 /* SERVICE SECTIONS */
 .service-section {
   padding: 5rem 2rem;
@@ -80,27 +104,54 @@
   align-items: center;
 }
 
-.image-box {
-  width: 350px;
-  height: 350px;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 107, 107, 0.15));
-  border: 2px solid var(--secondary-color);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 5rem;
-  color: var(--secondary-color);
-  text-align: center;
-  font-weight: 300;
+.service-visual-card {
+  position: relative;
+  width: min(100%, 380px);
+  min-height: 380px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.18);
+  border: 2px solid rgba(244, 201, 93, 0.5);
 }
 
-.image-box p {
-  font-size: 1.1rem;
-  color: var(--primary-color);
-  margin-top: 1rem;
-  font-weight: 600;
+.service-visual-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-visual-card:hover img {
+  transform: scale(1.05);
+}
+
+.service-visual-card figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.85) 100%);
+  color: #fff;
+}
+
+.service-visual-card figcaption p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.4rem;
+  line-height: 1.6;
+}
+
+.visual-chip {
+  display: inline-flex;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(244, 201, 93, 0.2);
+  border: 1px solid rgba(244, 201, 93, 0.5);
+  color: #fff7d6;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .pricing-info {
@@ -119,6 +170,49 @@
 
 .pricing-info p strong {
   color: var(--secondary-color);
+}
+
+/* SERVICE HIGHLIGHTS */
+.service-highlights-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #fffefb 0%, #fff7eb 100%);
+}
+
+.service-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.highlight-card {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+  transition: var(--transition);
+}
+
+.highlight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.12);
+}
+
+.highlight-card i {
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.highlight-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.highlight-card p {
+  color: #5a6475;
+  line-height: 1.7;
 }
 
 /* PROCESS SECTION */
@@ -262,14 +356,18 @@
     font-size: 1.1rem;
   }
 
+  .page-header-badges {
+    justify-content: center;
+  }
+
   .service-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .image-box {
-    width: 100%;
-    height: 250px;
+  .service-visual-card,
+  .service-visual-card img {
+    min-height: 250px;
   }
 
   .service-section.alternate .service-content {
@@ -314,9 +412,14 @@
     font-size: 1rem;
   }
 
-  .image-box {
-    height: 200px;
-    font-size: 3rem;
+  .page-header-badges span {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .service-visual-card,
+  .service-visual-card img {
+    min-height: 210px;
   }
 
   .process-grid {

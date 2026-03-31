@@ -22,6 +22,63 @@
   color: #ddd;
 }
 
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.hero-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(244, 201, 93, 0.35);
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.hero-badges i {
+  color: var(--secondary-color);
+}
+
+.about-stats-strip {
+  padding: 0 2rem 2rem;
+  margin-top: -1rem;
+  background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%);
+}
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.about-stat-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.about-stat-card strong {
+  display: block;
+  color: var(--primary-color);
+  font-size: 1.7rem;
+  margin-bottom: 0.35rem;
+}
+
+.about-stat-card span {
+  color: #5a6475;
+  font-size: 0.95rem;
+}
+
 /* STORY SECTION */
 .story-section {
   padding: 5rem 2rem;
@@ -120,6 +177,15 @@
   color: var(--secondary-color);
   font-weight: 600;
   margin-bottom: 1rem !important;
+}
+
+.signature-quote {
+  background: linear-gradient(135deg, rgba(244, 201, 93, 0.18), rgba(255, 122, 89, 0.12));
+  border-left: 4px solid var(--secondary-color);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  font-style: italic;
+  color: var(--primary-color) !important;
 }
 
 .founder-info p {
@@ -266,6 +332,49 @@
   font-size: 1.1rem;
 }
 
+/* PROMISE SECTION */
+.promise-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #fffefb 0%, #fff7eb 100%);
+}
+
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.promise-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.8rem;
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  transition: var(--transition);
+}
+
+.promise-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.12);
+}
+
+.promise-card i {
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.promise-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.promise-card p {
+  color: #5a6475;
+  line-height: 1.7;
+}
+
 /* AWARDS SECTION */
 .awards-section {
   padding: 5rem 2rem;
@@ -351,6 +460,14 @@
     font-size: 2rem;
   }
 
+  .hero-badges {
+    justify-content: center;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .story-grid,
   .founder-grid {
     grid-template-columns: 1fr;
@@ -390,10 +507,20 @@
     font-size: 1.5rem;
   }
 
+  .hero-badges span {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
   .story-section,
   .founder-section,
   .mission-section,
   .skills-section,
+  .promise-section,
   .awards-section {
     padding: 2.5rem 1rem;
   }

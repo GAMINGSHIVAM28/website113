@@ -8,6 +8,8 @@ class UpgradeFeatures {
   }
 
   init() {
+    this.initScrollProgress();
+    this.highlightCurrentPage();
     this.initBackToTop();
     this.initDarkMode();
     this.initWhatsApp();
@@ -15,6 +17,40 @@ class UpgradeFeatures {
     this.initBeforeAfterSlider();
     this.initScrollReveal();
     this.initLightbox();
+  }
+
+  // ===== SCROLL PROGRESS =====
+  initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+  }
+
+  // ===== ACTIVE NAV LINK =====
+  highlightCurrentPage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    document.querySelectorAll('nav a').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+
+      const page = href.split('#')[0];
+      if (page === currentPage) {
+        link.classList.add('active-link');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
   }
 
   // ===== BACK TO TOP BUTTON =====
