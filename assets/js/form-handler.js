@@ -16,6 +16,8 @@ class FormHandler {
     if (this.contactForm) {
       this.createLoadingSpinner();
       this.createSuccessContainer();
+      this.setMinimumEventDate();
+      this.prefillServiceFromQuery();
       this.handleRedirectStatus();
       this.contactForm.addEventListener('submit', (e) => this.handleSubmit(e));
     }
@@ -53,6 +55,28 @@ class FormHandler {
     `;
     document.body.appendChild(spinner);
     this.loadingSpinner = spinner;
+  }
+
+  setMinimumEventDate() {
+    const eventDateField = document.getElementById('eventDate');
+    if (eventDateField) {
+      eventDateField.min = new Date().toISOString().split('T')[0];
+    }
+  }
+
+  prefillServiceFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get('service');
+    const serviceField = document.getElementById('service');
+
+    if (!service || !serviceField) {
+      return;
+    }
+
+    const hasMatchingOption = Array.from(serviceField.options).some((option) => option.value === service);
+    if (hasMatchingOption) {
+      serviceField.value = service;
+    }
   }
 
   createSuccessContainer() {
@@ -229,7 +253,7 @@ class FormHandler {
     field.value = value;
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     this.clearStatus();
 
@@ -254,6 +278,7 @@ class FormHandler {
     }
 
     const successUrl = `${window.location.origin}${window.location.pathname}?submitted=1${window.location.hash || ''}`;
+    this.ensureHiddenField('form-name', 'contact');
     this.ensureHiddenField('_next', successUrl);
     this.ensureHiddenField('_captcha', 'false');
     this.ensureHiddenField('_template', 'table');
@@ -262,19 +287,28 @@ class FormHandler {
     this.showLoading();
     this.showStatus('Sending your inquiry...', 'success');
 
-    console.log({
-      name,
-      email,
-      phone,
-      service,
-      subject,
-      message,
-      timestamp: new Date().toISOString()
-    });
+    try {
+      const formData = new FormData(this.contactForm);
+      const encodedData = new URLSearchParams(formData).toString();
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodedData
+      });
 
-    window.setTimeout(() => {
-      this.contactForm.submit();
-    }, 150);
+      if (!response.ok) {
+        throw new Error(`Submission failed with status ${response.status}`);
+      }
+
+      window.location.href = successUrl;
+    } catch (error) {
+      console.error('Contact form submission failed:', error);
+      this.hideLoading();
+      this.setSubmittingState(false);
+      this.showStatus('Sorry, something went wrong while sending your inquiry. Please try again or contact us on WhatsApp.', 'error');
+    }
   }
 }
 

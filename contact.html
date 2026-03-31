@@ -13,8 +13,13 @@
   <meta property="og:description" content="Contact Dolly Digital Studio to book your next wedding, portrait, event, or commercial shoot.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shivam-photography.netlify.app/contact.html">
-  <meta property="og:image" content="https://gamingshivam28.github.io/website113/assets/images/hero-image.jpeg">
+  <meta property="og:image" content="https://shivam-photography.netlify.app/assets/images/hero-image.jpeg">
+  <meta property="og:site_name" content="Dolly Digital Studio">
   <link rel="canonical" href="https://shivam-photography.netlify.app/contact.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Book a Shoot | Dolly Digital Studio">
+  <meta name="twitter:description" content="Contact Dolly Digital Studio to book your next wedding, portrait, event, or commercial shoot.">
+  <meta name="twitter:image" content="https://shivam-photography.netlify.app/assets/images/hero-image.jpeg">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=20260331fix1">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
@@ -124,8 +129,11 @@
           <div class="form-wrapper">
             <h2>Book Your Shoot</h2>
             <p style="color:#52607a; margin-bottom:1.5rem; line-height:1.7;">Share your date, location, and budget to get a fast quote and availability update within 24 hours.</p>
-            <form id="contactForm" class="contact-form" name="contact" method="POST" netlify>
+            <form id="contactForm" class="contact-form" name="contact" method="POST" netlify data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8">
               <input type="hidden" name="form-name" value="contact">
+              <p style="display:none !important; margin:0;">
+                <label>Do not fill this field if you're human: <input name="bot-field"></label>
+              </p>
               <div class="form-group">
                 <label for="name">Full Name *</label>
                 <input type="text" id="name" name="name" required placeholder="Your Name">
@@ -306,6 +314,8 @@
       <p>&copy; 2026 Dolly Digital Studio. All rights reserved. | Professional Photography Services</p>
     </div>
   </footer>
+
+
 
   <script src="assets/js/contact-script.js?v=20260331fix1"></script>
   <script src="assets/js/form-handler.js?v=20260331fix1"></script>
