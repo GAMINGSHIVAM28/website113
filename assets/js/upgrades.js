@@ -4,6 +4,7 @@
 
 class UpgradeFeatures {
   constructor() {
+    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.init();
   }
 
@@ -13,28 +14,43 @@ class UpgradeFeatures {
     this.initBackToTop();
     this.initDarkMode();
     this.initWhatsApp();
+    this.initGoogleTranslate();
     this.initTestimonialsSlider();
     this.initBeforeAfterSlider();
     this.initScrollReveal();
+    this.initCounterStats();
     this.initLightbox();
   }
 
   // ===== SCROLL PROGRESS =====
   initScrollProgress() {
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    document.body.appendChild(progressBar);
+    const existingBar = document.querySelector('.scroll-progress');
+    const progressBar = existingBar || document.createElement('div');
 
+    if (!existingBar) {
+      progressBar.className = 'scroll-progress';
+      document.body.appendChild(progressBar);
+    }
+
+    let ticking = false;
     const updateProgress = () => {
       const scrollTop = window.scrollY;
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
       progressBar.style.width = `${progress}%`;
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
     };
 
     updateProgress();
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', updateProgress);
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
   }
 
   // ===== ACTIVE NAV LINK =====
@@ -79,44 +95,164 @@ class UpgradeFeatures {
 
   // ===== DARK MODE TOGGLE =====
   initDarkMode() {
+    if (document.querySelector('.theme-toggle')) return;
+
     const toggle = document.createElement('button');
     toggle.className = 'theme-toggle';
     toggle.innerHTML = '🌙';
     toggle.title = 'Toggle Dark Mode';
+    toggle.setAttribute('aria-label', 'Toggle dark mode');
     document.body.appendChild(toggle);
 
-    // Check saved preference
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-mode');
-      toggle.innerHTML = '☀️';
+    let savedTheme = 'auto';
+    try {
+      savedTheme = localStorage.getItem('theme') || 'auto';
+    } catch (error) {
+      savedTheme = 'auto';
     }
+
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseDark = savedTheme === 'dark' || (savedTheme === 'auto' && systemPrefersDark);
+    document.body.classList.toggle('dark-mode', shouldUseDark);
+    toggle.innerHTML = shouldUseDark ? '☀️' : '🌙';
 
     toggle.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
       toggle.innerHTML = isDark ? '☀️' : '🌙';
+
+      try {
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      } catch (error) {
+        console.warn('Theme preference could not be saved.', error);
+      }
     });
   }
 
   // ===== WHATSAPP BUTTON =====
   initWhatsApp() {
+    const existingFloatingButton = document.querySelector('.whatsapp-btn, a[aria-label*="WhatsApp"][style*="position:fixed"]');
+    if (existingFloatingButton) return;
+
     const button = document.createElement('a');
-    button.className = 'whatsapp-btn show';
-    button.href = 'https://wa.me/919993035235?text=Hi%20Shivam!%20I%20would%20like%20to%20inquire%20about%20your%20photography%20services.';
+    button.className = 'whatsapp-btn';
+    button.href = 'https://wa.me/919993035235?text=Hi%20Dolly%20Digital%20Studio%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services.';
     button.target = '_blank';
     button.rel = 'noopener noreferrer';
     button.title = 'Chat on WhatsApp';
-    button.innerHTML = '💬';
+    button.setAttribute('aria-label', 'Chat on WhatsApp');
+    button.innerHTML = '<i class="fab fa-whatsapp" aria-hidden="true"></i>';
     document.body.appendChild(button);
 
-    // Show after scroll
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        button.classList.add('show');
+    const syncVisibility = () => {
+      button.classList.toggle('show', window.pageYOffset > 180);
+    };
+
+    syncVisibility();
+    window.addEventListener('scroll', syncVisibility, { passive: true });
+  }
+
+  // ===== GOOGLE TRANSLATE =====
+  initGoogleTranslate() {
+    if (document.querySelector('.translate-utility')) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'translate-utility';
+    wrapper.innerHTML = `
+      <button class="translate-toggle" type="button" aria-expanded="false" aria-controls="translate-panel" title="Translate this page">
+        <i class="fas fa-language" aria-hidden="true"></i>
+      </button>
+      <div class="translate-panel" id="translate-panel" hidden>
+        <div class="translate-panel-head">
+          <strong>Translate page</strong>
+          <span>Powered by Google</span>
+        </div>
+        <div id="google_translate_element"></div>
+        <p class="translate-panel-note">Load translation tools for Hindi and other languages when needed.</p>
+      </div>
+    `;
+    document.body.appendChild(wrapper);
+
+    const toggle = wrapper.querySelector('.translate-toggle');
+    const panel = wrapper.querySelector('.translate-panel');
+    const note = wrapper.querySelector('.translate-panel-note');
+    let isScriptRequested = false;
+
+    const closePanel = () => {
+      panel.hidden = true;
+      wrapper.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    const loadTranslate = () => {
+      if (window.google?.translate?.TranslateElement) {
+        if (!document.querySelector('#google_translate_element select')) {
+          window.googleTranslateElementInit();
+        }
+        return;
       }
-    }, { passive: true });
+
+      if (isScriptRequested) {
+        return;
+      }
+
+      isScriptRequested = true;
+      note.textContent = 'Loading translation tools...';
+
+      window.googleTranslateElementInit = () => {
+        try {
+          if (window.google?.translate?.TranslateElement) {
+            new window.google.translate.TranslateElement(
+              {
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,bn,gu,mr,pa,ta,te,ur,kn,ml',
+                autoDisplay: false,
+                layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+              },
+              'google_translate_element'
+            );
+            note.textContent = 'Choose your preferred language below.';
+          } else {
+            note.textContent = 'Google Translate is not available right now. Please use your browser translation option.';
+          }
+        } catch (error) {
+          console.error('Google Translate could not be initialized.', error);
+          note.textContent = 'Google Translate is not available right now. Please use your browser translation option.';
+        }
+      };
+
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      script.onerror = () => {
+        note.textContent = 'Google Translate could not load. Please use your browser translation option.';
+      };
+      document.body.appendChild(script);
+    };
+
+    toggle.addEventListener('click', () => {
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      wrapper.classList.toggle('open', willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+
+      if (willOpen) {
+        loadTranslate();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!wrapper.contains(event.target)) {
+        closePanel();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closePanel();
+      }
+    });
   }
 
   // ===== TESTIMONIALS SLIDER =====
@@ -157,9 +293,11 @@ class UpgradeFeatures {
     }
 
     // Auto-rotate every 5 seconds
-    setInterval(() => {
-      moveSlide((currentIndex + 1) % cards.length);
-    }, 5000);
+    if (!this.prefersReducedMotion && cards.length > 1) {
+      setInterval(() => {
+        moveSlide((currentIndex + 1) % cards.length);
+      }, 5000);
+    }
   }
 
   // ===== BEFORE/AFTER SLIDER =====
@@ -203,24 +341,83 @@ class UpgradeFeatures {
 
   // ===== SCROLL REVEAL ANIMATION =====
   initScrollReveal() {
-    const reveals = document.querySelectorAll('.service-card, .feature-item, .stat-card, .award-card');
+    const reveals = document.querySelectorAll('.service-card, .feature-item, .stat-card, .award-card, .promise-card, .info-card-item, .faq-item, .gallery-item, .package-card, .process-card, .about-stat-card, .mvv-card, .service-visual-card, .shop-detail-item');
+
+    if (!reveals.length) return;
+
+    if (this.prefersReducedMotion) {
+      reveals.forEach((reveal) => {
+        reveal.classList.add('scroll-reveal', 'active');
+      });
+      return;
+    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('scroll-reveal');
           entry.target.classList.add('active');
+          observer.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -80px 0px'
     });
 
     reveals.forEach(reveal => {
       reveal.classList.add('scroll-reveal');
       observer.observe(reveal);
     });
+  }
+
+  // ===== COUNTER ANIMATION =====
+  initCounterStats() {
+    const counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+
+    const animateCounter = (counter) => {
+      const target = Number(counter.dataset.count || 0);
+      const suffix = counter.dataset.suffix || '';
+
+      if (this.prefersReducedMotion) {
+        counter.textContent = `${target.toLocaleString()}${suffix}`;
+        return;
+      }
+
+      const duration = 1400;
+      let startTime = null;
+
+      const step = (timestamp) => {
+        if (!startTime) {
+          startTime = timestamp;
+        }
+
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(target * easedProgress);
+        counter.textContent = `${value.toLocaleString()}${suffix}`;
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver((entries, statsObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.35
+    });
+
+    counters.forEach((counter) => observer.observe(counter));
   }
 
   // ===== IMAGE LIGHTBOX =====
