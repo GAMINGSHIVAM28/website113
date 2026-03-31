@@ -9,6 +9,7 @@ class FormHandler {
     this.loadingSpinner = null;
     this.statusElement = document.getElementById('formStatus');
     this.submitButton = this.contactForm?.querySelector('button[type="submit"]') || null;
+    this.submitResetTimer = null;
     this.init();
   }
 
@@ -28,6 +29,9 @@ class FormHandler {
     const params = new URLSearchParams(window.location.search);
 
     if (params.get('submitted') === '1') {
+      this.clearSubmitFallback();
+      this.hideLoading();
+      this.setSubmittingState(false);
       this.showStatus('✅ Message sent successfully!', 'success');
       this.showSuccess();
 
@@ -132,6 +136,25 @@ class FormHandler {
     if (this.loadingSpinner) {
       this.loadingSpinner.classList.remove('active');
     }
+  }
+
+  clearSubmitFallback() {
+    if (this.submitResetTimer) {
+      window.clearTimeout(this.submitResetTimer);
+      this.submitResetTimer = null;
+    }
+  }
+
+  scheduleSubmitFallback() {
+    this.clearSubmitFallback();
+    this.submitResetTimer = window.setTimeout(() => {
+      this.hideLoading();
+      this.setSubmittingState(false);
+
+      if (this.statusElement?.textContent.includes('Sending your inquiry')) {
+        this.showStatus('Still processing — if the page does not redirect soon, please try again or contact us on WhatsApp.', 'error');
+      }
+    }, 8000);
   }
 
   showSuccess() {
@@ -337,6 +360,7 @@ class FormHandler {
     this.setSubmittingState(true);
     this.showLoading();
     this.showStatus('Sending your inquiry...', 'success');
+    this.scheduleSubmitFallback();
   }
 }
 
