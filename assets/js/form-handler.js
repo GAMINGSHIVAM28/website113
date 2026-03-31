@@ -180,13 +180,15 @@ class FormHandler {
   }
 
   clearStatus() {
+    this.clearFieldErrors();
+
     if (this.statusElement) {
       this.statusElement.textContent = '';
       this.statusElement.style.display = 'none';
     }
   }
 
-  validateForm(name, email, service, subject, message, terms) {
+  validateForm(name, email, phone, service, subject, message, terms) {
     const errors = {};
 
     if (!name || name.trim().length < 2) {
@@ -195,6 +197,10 @@ class FormHandler {
 
     if (!email || !this.isValidEmail(email)) {
       errors.emailError = 'Please enter a valid email address';
+    }
+
+    if (phone && !/^[+\d\s()-]{7,20}$/.test(phone)) {
+      errors.phoneError = 'Please enter a valid phone number';
     }
 
     if (!service) {
@@ -221,22 +227,48 @@ class FormHandler {
     return emailRegex.test(email);
   }
 
-  displayErrors(errors) {
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach((msg) => {
-      msg.textContent = '';
+  clearFieldErrors() {
+    const fields = this.contactForm?.querySelectorAll('input, select, textarea') || [];
+    fields.forEach((field) => {
+      field.removeAttribute('aria-invalid');
+      field.style.borderColor = '';
+      field.style.boxShadow = '';
     });
+  }
 
+  displayErrors(errors) {
+    const fieldMap = {
+      nameError: 'name',
+      emailError: 'email',
+      phoneError: 'phone',
+      serviceError: 'service',
+      subjectError: 'subject',
+      messageError: 'message',
+      termsError: 'terms'
+    };
+
+    this.clearFieldErrors();
+
+    let firstField = null;
     Object.keys(errors).forEach((key) => {
-      const element = document.getElementById(key);
-      if (element) {
-        element.textContent = errors[key];
+      const fieldId = fieldMap[key];
+      const field = fieldId ? document.getElementById(fieldId) : null;
+
+      if (field) {
+        field.setAttribute('aria-invalid', 'true');
+        field.style.borderColor = '#dc2626';
+        field.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.12)';
+
+        if (!firstField) {
+          firstField = field;
+        }
       }
     });
 
     const firstError = Object.values(errors)[0];
     if (firstError) {
       this.showStatus(firstError, 'error');
+      firstField?.focus();
     }
   }
 
@@ -265,7 +297,7 @@ class FormHandler {
     const message = document.getElementById('message').value.trim();
     const terms = document.getElementById('terms').checked;
 
-    const errors = this.validateForm(name, email, service, subject, message, terms);
+    const errors = this.validateForm(name, email, phone, service, subject, message, terms);
 
     if (Object.keys(errors).length > 0) {
       this.displayErrors(errors);
@@ -273,7 +305,7 @@ class FormHandler {
     }
 
     if (window.location.protocol === 'file:') {
-      this.showStatus('To send real inquiries, open this page through a local server or your live Netlify site. Form delivery will not work from file:// pages.', 'error');
+      this.showStatus('To send real inquiries, open this page through a local server or your live website: https://shivam-photography.netlify.app/. Form delivery will not work from file:// pages.', 'error');
       return;
     }
 
@@ -290,18 +322,22 @@ class FormHandler {
       const formAction = this.contactForm.getAttribute('action') || 'https://formsubmit.co/shivamdwivedi280708@gmail.com';
       const ajaxEndpoint = formAction.replace('formsubmit.co/', 'formsubmit.co/ajax/');
       const formData = new FormData(this.contactForm);
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
       const response = await fetch(ajaxEndpoint, {
         method: 'POST',
         headers: {
           Accept: 'application/json'
         },
-        body: formData
+        body: formData,
+        signal: controller.signal
       });
 
+      window.clearTimeout(timeoutId);
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
+      if (!response.ok || result.success === 'false') {
         throw new Error(result.message || `Submission failed with status ${response.status}`);
       }
 
@@ -314,10 +350,13 @@ class FormHandler {
       this.setSubmittingState(false);
 
       const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      const isTimeout = error?.name === 'AbortError';
       this.showStatus(
         isOffline
           ? 'You appear to be offline. Please reconnect and try again.'
-          : 'Sorry, your message could not be sent right now. Please try again in a moment or contact us on WhatsApp.',
+          : isTimeout
+            ? 'The request is taking too long. Please try again in a few moments.'
+            : 'Sorry, your message could not be sent right now. Please try again in a moment or contact us on WhatsApp.',
         'error'
       );
     }
