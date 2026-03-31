@@ -18,6 +18,7 @@ class FormHandler {
       this.createSuccessContainer();
       this.setMinimumEventDate();
       this.prefillServiceFromQuery();
+      this.bindFieldInteractions();
       this.handleRedirectStatus();
       this.contactForm.addEventListener('submit', (e) => this.handleSubmit(e));
     }
@@ -62,6 +63,24 @@ class FormHandler {
     if (eventDateField) {
       eventDateField.min = new Date().toISOString().split('T')[0];
     }
+  }
+
+  bindFieldInteractions() {
+    const fields = this.contactForm?.querySelectorAll('input, select, textarea') || [];
+
+    fields.forEach((field) => {
+      const eventName = field.type === 'checkbox' || field.tagName === 'SELECT' ? 'change' : 'input';
+      field.addEventListener(eventName, () => {
+        field.removeAttribute('aria-invalid');
+        field.style.borderColor = '';
+        field.style.boxShadow = '';
+
+        if (this.statusElement && this.statusElement.textContent) {
+          this.statusElement.textContent = '';
+          this.statusElement.style.display = 'none';
+        }
+      });
+    });
   }
 
   prefillServiceFromQuery() {
@@ -285,8 +304,7 @@ class FormHandler {
     field.value = value;
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(e) {
     this.clearStatus();
 
     const name = document.getElementById('name').value.trim();
@@ -300,11 +318,13 @@ class FormHandler {
     const errors = this.validateForm(name, email, phone, service, subject, message, terms);
 
     if (Object.keys(errors).length > 0) {
+      e.preventDefault();
       this.displayErrors(errors);
       return;
     }
 
     if (window.location.protocol === 'file:') {
+      e.preventDefault();
       this.showStatus('To send real inquiries, open this page through a local server or your live website: https://shivam-photography.netlify.app/. Form delivery will not work from file:// pages.', 'error');
       return;
     }
@@ -317,49 +337,6 @@ class FormHandler {
     this.setSubmittingState(true);
     this.showLoading();
     this.showStatus('Sending your inquiry...', 'success');
-
-    try {
-      const formAction = this.contactForm.getAttribute('action') || 'https://formsubmit.co/shivamdwivedi280708@gmail.com';
-      const ajaxEndpoint = formAction.replace('formsubmit.co/', 'formsubmit.co/ajax/');
-      const formData = new FormData(this.contactForm);
-      const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
-
-      const response = await fetch(ajaxEndpoint, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json'
-        },
-        body: formData,
-        signal: controller.signal
-      });
-
-      window.clearTimeout(timeoutId);
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok || result.success === 'false') {
-        throw new Error(result.message || `Submission failed with status ${response.status}`);
-      }
-
-      this.contactForm.reset();
-      this.setMinimumEventDate();
-      window.location.href = successUrl;
-    } catch (error) {
-      console.error('Contact form submission failed:', error);
-      this.hideLoading();
-      this.setSubmittingState(false);
-
-      const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      const isTimeout = error?.name === 'AbortError';
-      this.showStatus(
-        isOffline
-          ? 'You appear to be offline. Please reconnect and try again.'
-          : isTimeout
-            ? 'The request is taking too long. Please try again in a few moments.'
-            : 'Sorry, your message could not be sent right now. Please try again in a moment or contact us on WhatsApp.',
-        'error'
-      );
-    }
   }
 }
 
