@@ -25,15 +25,14 @@ class FormHandler {
     const params = new URLSearchParams(window.location.search);
 
     if (params.get('submitted') === '1') {
-      this.showStatus('Your inquiry has been sent successfully. We will contact you within 24 hours.', 'success');
+      this.showStatus('✅ Message sent successfully!', 'success');
       this.showSuccess();
 
       setTimeout(() => {
         this.hideSuccess();
+        const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+        window.history.replaceState({}, document.title, cleanUrl);
       }, 6000);
-
-      const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
-      window.history.replaceState({}, document.title, cleanUrl);
     }
   }
 
@@ -250,7 +249,7 @@ class FormHandler {
     }
 
     if (window.location.protocol === 'file:') {
-      this.showStatus('To send real inquiries, open this page through a local server or your live website URL. FormSubmit will not deliver emails from file:// pages.', 'error');
+      this.showStatus('To send real inquiries, open this page through a local server or your live Netlify site. Form delivery will not work from file:// pages.', 'error');
       return;
     }
 
@@ -281,4 +280,14 @@ class FormHandler {
 
 document.addEventListener('DOMContentLoaded', function() {
   new FormHandler();
+});
+
+window.addEventListener('load', function () {
+  if (window.location.search.includes('submitted=1')) {
+    const msg = document.getElementById('formStatus');
+    if (msg) {
+      msg.innerText = '✅ Message sent successfully!';
+      msg.style.color = 'green';
+    }
+  }
 });
