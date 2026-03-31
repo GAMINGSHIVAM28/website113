@@ -155,46 +155,6 @@
   z-index: 4;
 }
 
-/* DARK MODE TOGGLE */
-.theme-toggle {
-  position: fixed;
-  top: 80px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #d4af37, #ff6b6b);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  z-index: 999;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-}
-
-.theme-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-}
-
-/* DARK MODE STYLES */
-body.dark-mode {
-  --primary-color: #f0f0f0;
-  --text-dark: #ffffff;
-  --bg-light: #1a1a1a;
-  --border-color: #333333;
-}
-
-body.dark-mode header {
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-}
-
-body.dark-mode footer {
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-}
 
 /* WHATSAPP BUTTON */
 .whatsapp-btn {
@@ -393,12 +353,6 @@ body.dark-mode footer {
     font-size: 1.2rem;
   }
 
-  .theme-toggle {
-    top: 70px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-  }
 
   .whatsapp-btn {
     bottom: 90px;
@@ -426,12 +380,6 @@ body.dark-mode footer {
     font-size: 1rem;
   }
 
-  .theme-toggle {
-    top: 65px;
-    right: 15px;
-    width: 40px;
-    height: 40px;
-  }
 
   .whatsapp-btn {
     bottom: 85px;
@@ -696,7 +644,6 @@ footer {
 .btn,
 .slider-btn,
 .back-to-top,
-.theme-toggle,
 .whatsapp-btn,
 .translate-toggle {
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
@@ -796,23 +743,6 @@ footer {
   font: inherit;
 }
 
-body.dark-mode .translate-panel {
-  background: rgba(11, 17, 32, 0.95);
-  border-color: rgba(244, 201, 93, 0.18);
-}
-
-body.dark-mode .translate-panel-head strong,
-body.dark-mode .translate-panel-head span,
-body.dark-mode .translate-panel-note,
-body.dark-mode #google_translate_element .goog-te-gadget {
-  color: #eef4ff !important;
-}
-
-body.dark-mode #google_translate_element select {
-  background: #0f172a;
-  color: #eef4ff;
-  border-color: rgba(244, 201, 93, 0.2);
-}
 
 @media (max-width: 768px) {
   .translate-utility {

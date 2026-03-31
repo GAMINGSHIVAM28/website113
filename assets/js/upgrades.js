@@ -12,7 +12,6 @@ class UpgradeFeatures {
     this.initScrollProgress();
     this.highlightCurrentPage();
     this.initBackToTop();
-    this.initDarkMode();
     this.initWhatsApp();
     this.initGoogleTranslate();
     this.initTestimonialsSlider();
@@ -90,42 +89,6 @@ class UpgradeFeatures {
         top: 0,
         behavior: 'smooth'
       });
-    });
-  }
-
-  // ===== DARK MODE TOGGLE =====
-  initDarkMode() {
-    if (document.querySelector('.theme-toggle')) return;
-
-    const toggle = document.createElement('button');
-    toggle.className = 'theme-toggle';
-    toggle.innerHTML = '🌙';
-    toggle.title = 'Toggle Dark Mode';
-    toggle.setAttribute('aria-label', 'Toggle dark mode');
-    document.body.appendChild(toggle);
-
-    let savedTheme = 'auto';
-    try {
-      savedTheme = localStorage.getItem('theme') || 'auto';
-    } catch (error) {
-      savedTheme = 'auto';
-    }
-
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldUseDark = savedTheme === 'dark' || (savedTheme === 'auto' && systemPrefersDark);
-    document.body.classList.toggle('dark-mode', shouldUseDark);
-    toggle.innerHTML = shouldUseDark ? '☀️' : '🌙';
-
-    toggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      toggle.innerHTML = isDark ? '☀️' : '🌙';
-
-      try {
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      } catch (error) {
-        console.warn('Theme preference could not be saved.', error);
-      }
     });
   }
 
