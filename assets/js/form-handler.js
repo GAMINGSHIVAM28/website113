@@ -9,37 +9,23 @@ class FormHandler {
     this.loadingSpinner = null;
     this.statusElement = document.getElementById('formStatus');
     this.submitButton = this.contactForm?.querySelector('button[type="submit"]') || null;
-    this.submitResetTimer = null;
     this.init();
   }
 
   init() {
     if (this.contactForm) {
+      // Initialize EmailJS
+      // Must use exact user key from EmailJS dashboard (starts with user_)
+      // Example: user_aelzppxFfJ14icf5H
+      const publicKey = "aelzppxFfJ14icf5H";
+      emailjs.init(publicKey);
+
       this.createLoadingSpinner();
       this.createSuccessContainer();
       this.setMinimumEventDate();
       this.prefillServiceFromQuery();
       this.bindFieldInteractions();
-      this.handleRedirectStatus();
       this.contactForm.addEventListener('submit', (e) => this.handleSubmit(e));
-    }
-  }
-
-  handleRedirectStatus() {
-    const params = new URLSearchParams(window.location.search);
-
-    if (params.get('submitted') === '1') {
-      this.clearSubmitFallback();
-      this.hideLoading();
-      this.setSubmittingState(false);
-      this.showStatus('✅ Message sent successfully!', 'success');
-      this.showSuccess();
-
-      setTimeout(() => {
-        this.hideSuccess();
-        const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
-        window.history.replaceState({}, document.title, cleanUrl);
-      }, 6000);
     }
   }
 
@@ -136,25 +122,6 @@ class FormHandler {
     if (this.loadingSpinner) {
       this.loadingSpinner.classList.remove('active');
     }
-  }
-
-  clearSubmitFallback() {
-    if (this.submitResetTimer) {
-      window.clearTimeout(this.submitResetTimer);
-      this.submitResetTimer = null;
-    }
-  }
-
-  scheduleSubmitFallback() {
-    this.clearSubmitFallback();
-    this.submitResetTimer = window.setTimeout(() => {
-      this.hideLoading();
-      this.setSubmittingState(false);
-
-      if (this.statusElement?.textContent.includes('Sending your inquiry')) {
-        this.showStatus('Still processing — if the page does not redirect soon, please try again or contact us on WhatsApp.', 'error');
-      }
-    }, 8000);
   }
 
   showSuccess() {
@@ -314,20 +281,9 @@ class FormHandler {
     }
   }
 
-  ensureHiddenField(name, value) {
-    let field = this.contactForm.querySelector(`input[name="${name}"]`);
-
-    if (!field) {
-      field = document.createElement('input');
-      field.type = 'hidden';
-      field.name = name;
-      this.contactForm.appendChild(field);
-    }
-
-    field.value = value;
-  }
-
   handleSubmit(e) {
+    e.preventDefault(); // Prevent form submission
+
     this.clearStatus();
 
     const name = document.getElementById('name').value.trim();
@@ -336,44 +292,85 @@ class FormHandler {
     const service = document.getElementById('service').value;
     const subject = document.getElementById('subject').value.trim();
     const message = document.getElementById('message').value.trim();
+    const eventDate = document.getElementById('eventDate').value;
+    const shootLocation = document.getElementById('shootLocation').value.trim();
+    const budget = document.getElementById('budget').value;
     const terms = document.getElementById('terms').checked;
 
     const errors = this.validateForm(name, email, phone, service, subject, message, terms);
 
     if (Object.keys(errors).length > 0) {
-      e.preventDefault();
       this.displayErrors(errors);
       return;
     }
 
-    if (window.location.protocol === 'file:') {
-      e.preventDefault();
-      this.showStatus('To send real inquiries, open this page through a local server or your live website: https://shivam-photography.netlify.app/. Form delivery will not work from file:// pages.', 'error');
+    // Check for honeypot spam
+    const honey = document.querySelector('input[name="_honey"]');
+    if (honey && honey.value.trim()) {
+      this.showStatus('Spam detected. Please try again.', 'error');
       return;
     }
 
-    const successUrl = `${window.location.origin}${window.location.pathname}?submitted=1${window.location.hash || ''}`;
-    this.ensureHiddenField('_next', successUrl);
-    this.ensureHiddenField('_captcha', 'false');
-    this.ensureHiddenField('_template', 'table');
-
     this.setSubmittingState(true);
     this.showLoading();
-    this.showStatus('Sending your inquiry...', 'success');
-    this.scheduleSubmitFallback();
+    this.showStatus('Sending your message...', 'success');
+
+    const templateParams = {
+      name: name,
+      email: email,
+      phone: phone,
+      service: service,
+      subject: subject,
+      message: message,
+      event_date: eventDate,
+      shoot_location: shootLocation,
+      budget: budget
+    };
+
+    // Send email to photographer
+    const photographerPromise = emailjs.send(
+      "service_bgsr254", // Your EmailJS service ID
+      "template_dhyupld", // Confirmed photographer template ID
+      {
+        ...templateParams,
+        to_email: "shivamdwivedi280708@gmail.com" // Photographer's email
+      }
+    );
+
+    // Send auto-reply to user
+    const userPromise = emailjs.send(
+      "service_bgsr254", // Replace with your EmailJS service ID
+      "template_lpam2tb", // Replace with template ID for user auto-reply
+      {
+        ...templateParams,
+        to_email: email // User's email
+      }
+    );
+
+    Promise.all([photographerPromise, userPromise])
+      .then(() => {
+        this.hideLoading();
+        this.setSubmittingState(false);
+        this.showStatus('Message sent successfully!', 'success');
+        this.showSuccess();
+        this.contactForm.reset();
+      })
+      .catch((error) => {
+        console.error('EmailJS error:', error);
+        this.hideLoading();
+        this.setSubmittingState(false);
+
+        let userMessage = 'Failed to send message. Please try again or contact us directly.';
+        if (error && error.status && error.text) {
+          const text = (typeof error.text === 'string' ? error.text : JSON.stringify(error.text));
+          userMessage = `Email service error (${error.status}): ${text}. Please verify EmailJS settings.`;
+        }
+
+        this.showStatus(userMessage, 'error');
+      });
   }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   new FormHandler();
-});
-
-window.addEventListener('load', function () {
-  if (window.location.search.includes('submitted=1')) {
-    const msg = document.getElementById('formStatus');
-    if (msg) {
-      msg.innerText = '✅ Message sent successfully!';
-      msg.style.color = 'green';
-    }
-  }
 });
