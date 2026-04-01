@@ -1,0 +1,25 @@
+{
+  "business": {
+    "name": "Dolly Digital Studio",
+    "email": "shivamdwivedi280708@gmail.com",
+    "phone": "+91 99930 35235",
+    "whatsapp": "+919993035235",
+    "address": "4 Bindayal Colony Rd, Bilaspur, Chhattisgarh",
+    "location_lat": "21.8000",
+    "location_lng": "81.6300"
+  },
+  "emailjs": {
+    "publicKey": "user_aelzppxFfJ14icf5H",
+    "serviceId": "service_bgsr254",
+    "templateIds": {
+      "photographer": "template_dhyupld",
+      "userReply": "template_lpam2tb"
+    }
+  },
+  "social": {
+    "instagram": "https://instagram.com",
+    "facebook": "https://facebook.com",
+    "youtube": "https://youtube.com"
+  },
+  "_instructions": "TO CUSTOMIZE FOR YOUR BUSINESS: Simply update the values above. The entire website will auto-update. No code changes needed!"
+}

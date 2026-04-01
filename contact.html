@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="assets/css/animations.css?v=20260331fix1">
   <link rel="stylesheet" href="assets/css/upgrades.css?v=20260331final1">
   <link rel="stylesheet" href="assets/css/ai-chatbot.css?v=20260331fix1">
+  <link rel="stylesheet" href="assets/css/premium-enhancements.css?v=20260401">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -82,7 +83,7 @@
             <i class="fas fa-phone"></i>
           </div>
           <h3>Call Us</h3>
-          <p><a href="tel:+919993035235">+91 9993035235</a></p>
+          <p><a id="studio-phone" href="tel:+919993035235">+91 9993035235</a></p>
           <p class="timing">Mon - Fri: 10AM - 8PM<br>Sat - Sun: 11AM - 6PM</p>
         </div>
 
@@ -91,8 +92,8 @@
             <i class="fas fa-envelope"></i>
           </div>
           <h3>Email Us</h3>
-          <p><a href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></p>
-          <p><a href="mailto:shivamdwivedi280708@gmail.com">For bookings & support</a></p>
+          <p><a id="studio-email" href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></p>
+          <p><a id="studio-email-2" href="mailto:shivamdwivedi280708@gmail.com">For bookings & support</a></p>
         </div>
       </div>
     </div>
@@ -205,7 +206,7 @@
 
               <button type="submit" class="btn btn-primary">Send Message</button>
               <div id="formStatus" class="form-status-message" aria-live="polite"></div>
-              <p style="margin-top:1rem; color:#52607a; line-height:1.6;">Need a faster reply? <a href="https://wa.me/919993035235?text=Hi%20Dolly%20Digital%20Studio%2C%20I%20want%20to%20book%20a%20shoot." target="_blank" rel="noopener" style="color:#b8860b; font-weight:700;">Chat on WhatsApp</a></p>
+              <p style="margin-top:1rem; color:#52607a; line-height:1.6;">Need a faster reply? <a href="#" data-whatsapp data-message="Hi, I want to book a shoot with you." target="_blank" rel="noopener" style="color:#b8860b; font-weight:700;">Chat on WhatsApp</a></p>
             </form>
           </div>
         </div>
@@ -274,10 +275,10 @@
         <h3>💛 Dolly Digital Studio</h3>
         <p>Professional photography and digital services specializing in weddings, portraits, events, and creative visual storytelling.</p>
         <div class="social-links">
-          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://wa.me/919993035235?text=Hi%20Dolly%20Digital%20Studio%2C%20I%20want%20to%20book%20a%20shoot." title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
-          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" data-social="facebook" title="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+          <a href="#" data-social="instagram" title="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+          <a href="#" data-whatsapp data-message="Hi, I want to book a shoot with you." title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" data-social="youtube" title="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
       <div class="footer-section">
@@ -302,9 +303,9 @@
       </div>
       <div class="footer-section">
         <h3>Contact Information</h3>
-        <p><i class="fas fa-phone"></i> <a href="tel:+919993035235">+91 9993035235</a></p>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></p>
-        <p><i class="fas fa-map-marker-alt"></i> Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, Chhattisgarh, India - 495001</p>
+        <p><i class="fas fa-phone"></i> <a id="footer-phone" href="tel:+919993035235">+91 9993035235</a></p>
+        <p><i class="fas fa-envelope"></i> <a id="footer-email" href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></p>
+        <p><i class="fas fa-map-marker-alt"></i> <span id="footer-address">Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, Chhattisgarh, India - 495001</span></p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -317,5 +318,6 @@
   <script src="assets/js/upgrades.js?v=20260331final1"></script>
   <script src="assets/js/ai-chatbot.js?v=20260331fix1"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="assets/js/config-loader.js?v=20260401"></script>
 </body>
 </html>

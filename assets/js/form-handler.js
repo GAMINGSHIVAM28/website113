@@ -9,16 +9,26 @@ class FormHandler {
     this.loadingSpinner = null;
     this.statusElement = document.getElementById('formStatus');
     this.submitButton = this.contactForm?.querySelector('button[type="submit"]') || null;
+    this.config = null;
     this.init();
   }
 
-  init() {
+  async init() {
+    // Load business config
+    try {
+      const response = await fetch('assets/config/business-config.json');
+      this.config = await response.json();
+    } catch (error) {
+      console.error('Failed to load config:', error);
+      this.config = {
+        business: { email: 'shivamdwivedi280708@gmail.com' },
+        emailjs: { publicKey: 'user_aelzppxFfJ14icf5H', serviceId: 'service_bgsr254', templateIds: { photographer: 'template_dhyupld', userReply: 'template_lpam2tb' } }
+      };
+    }
+
     if (this.contactForm) {
-      // Initialize EmailJS
-      // Must use exact user key from EmailJS dashboard (starts with user_)
-      // Example: user_aelzppxFfJ14icf5H
-      const publicKey = "aelzppxFfJ14icf5H";
-      emailjs.init(publicKey);
+      // Initialize EmailJS with config value
+      emailjs.init(this.config.emailjs.publicKey);
 
       this.createLoadingSpinner();
       this.createSuccessContainer();
@@ -329,21 +339,21 @@ class FormHandler {
 
     // Send email to photographer
     const photographerPromise = emailjs.send(
-      "service_bgsr254", // Your EmailJS service ID
-      "template_dhyupld", // Confirmed photographer template ID
+      this.config.emailjs.serviceId,
+      this.config.emailjs.templateIds.photographer,
       {
         ...templateParams,
-        to_email: "shivamdwivedi280708@gmail.com" // Photographer's email
+        to_email: this.config.business.email
       }
     );
 
     // Send auto-reply to user
     const userPromise = emailjs.send(
-      "service_bgsr254", // Replace with your EmailJS service ID
-      "template_lpam2tb", // Replace with template ID for user auto-reply
+      this.config.emailjs.serviceId,
+      this.config.emailjs.templateIds.userReply,
       {
         ...templateParams,
-        to_email: email // User's email
+        to_email: email
       }
     );
 

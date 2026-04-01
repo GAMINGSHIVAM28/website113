@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="assets/css/about-style.css?v=20260331fix1">
   <link rel="stylesheet" href="assets/css/animations.css?v=20260331fix1">
   <link rel="stylesheet" href="assets/css/upgrades.css?v=20260331final1">
+  <link rel="stylesheet" href="assets/css/premium-enhancements.css?v=20260401">
   <link rel="stylesheet" href="assets/css/ai-chatbot.css?v=20260331fix1">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -283,10 +284,10 @@
         <h3>💛 Dolly Digital Studio</h3>
         <p>Professional photography services specializing in weddings, events, and creative visual storytelling in Bilaspur, Chhattisgarh, India.</p>
         <div class="social-links">
-          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" data-social="facebook" title="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+          <a href="#" data-social="instagram" title="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+          <a href="#" data-whatsapp data-message="Hi, I am interested in your photography services." title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" data-social="youtube" title="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
       <div class="footer-section">
@@ -310,9 +311,9 @@
       <div class="footer-section">
         <h3>Contact Info</h3>
         <ul>
-          <li><i class="fas fa-phone"></i> <a href="tel:+919993035235">+91 9993035235</a></li>
-          <li><i class="fas fa-envelope"></i> <a href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></li>
-          <li><i class="fas fa-map-marker-alt"></i> Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, Chhattisgarh, India - 495001</li>
+          <li><i class="fas fa-phone"></i> <a id="footer-phone-about" href="tel:+919993035235">+91 9993035235</a></li>
+          <li><i class="fas fa-envelope"></i> <a id="footer-email-about" href="mailto:shivamdwivedi280708@gmail.com">shivamdwivedi280708@gmail.com</a></li>
+          <li><i class="fas fa-map-marker-alt"></i> <span id="footer-address-about">Deendayal Colony, Mangla<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bilaspur, Chhattisgarh, India - 495001</span></li>
         </ul>
       </div>
     </div>
@@ -325,5 +326,6 @@
   <script src="assets/js/form-handler.js?v=20260331fix1"></script>
   <script src="assets/js/upgrades.js?v=20260331final1"></script>
   <script src="assets/js/ai-chatbot.js?v=20260331fix1"></script>
+  <script src="assets/js/config-loader.js?v=20260401"></script>
 </body>
 </html>
